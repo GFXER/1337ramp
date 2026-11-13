@@ -1,0 +1,70 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>1337ramp</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><div class="logo">1337<span>ramp</span></div><div class="pill" id="compPill">no comp</div></header>
+<main>
+  <section class="card">
+    <div class="ch"><h2>Clip</h2><button class="ghost" id="useSel">Use selected layer</button><button class="ghost" id="refresh" title="Reload the project list">↻</button></div>
+    <input id="q" placeholder="Search clips…" spellcheck="false">
+    <select id="clip" size="6"></select>
+    <div class="hint" id="clipInfo">Pick a clip from the project, or select a layer in the comp and press “Use selected layer”.</div>
+  </section>
+
+  <section class="card">
+    <div class="ch"><h2>Preview</h2><span class="hint" id="readout"></span></div>
+    <div class="stage"><canvas id="view"></canvas><div class="load" id="load"></div></div>
+    <div class="row">
+      <button class="btn" id="play">▶︎ Play</button>
+      <label class="tog"><input type="checkbox" id="loop" checked> Loop</label>
+      <label class="tog"><input type="checkbox" id="showSrc"> Original speed</label>
+      <span class="hint grow" id="tc"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="ch"><h2>Speed curve</h2>
+      <select id="preset" class="mini"></select></div>
+    <canvas id="graph"></canvas>
+    <canvas id="strip" title="Frame consistency: green = clean, orange = repeated frames, red = skipping frames"></canvas>
+    <div class="legend"><i class="ok"></i>clean <i class="dup"></i>repeated frames <i class="skip"></i>skipping frames</div>
+    <div class="hint">Drag the points. Double-click the curve to add a point, Alt-click a point to delete it.</div>
+    <div class="grid2">
+      <label>Selected point speed <span id="kvV"></span><input type="range" id="kv" min="0" max="1000" step="1"></label>
+      <label>Selected point ease <span id="keV"></span><input type="range" id="ke" min="1" max="100" step="1"></label>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="ch"><h2>Timing</h2></div>
+    <div class="grid2">
+      <label>Source start (s)<input type="number" id="srcIn" step="0.02" min="0"></label>
+      <label>Output length (frames)<input type="number" id="outN" step="1" min="2"></label>
+      <label>BPM (0 = off)<input type="number" id="bpm" step="0.1" min="0"></label>
+      <label>Length in beats<span class="seg" id="beats"><button data-b="0.5">½</button><button data-b="1">1</button><button data-b="2">2</button><button data-b="4">4</button><button data-b="8">8</button></span></label>
+    </div>
+    <input type="range" id="srcScrub" min="0" max="1000" step="1" title="Scrub the source start">
+    <div class="row">
+      <label class="tog"><input type="checkbox" id="fit"> Lock source end</label>
+      <label class="small2">Source end (s)<input type="number" id="srcOut" step="0.02" min="0"></label>
+      <label class="tog"><input type="checkbox" id="snap" checked> Snap to beat</label>
+    </div>
+    <div class="hint" id="srcNote"></div>
+  </section>
+
+  <section class="card">
+    <div class="ch"><h2>Frame consistency</h2></div>
+    <div class="grid2">
+      <label>Frame blending<select id="blend"><option value="none">Off (crisp, can stutter)</option><option value="mix">Frame Mix</option><option value="pixel">Pixel Motion (smoothest)</option></select></label>
+      <label>Motion blur shutter <span id="shV"></span><input type="range" id="shutter" min="0" max="720" step="15"></label>
+    </div>
+    <div class="row"><label class="tog"><input type="checkbox" id="mblur"> Motion blur</label><span class="hint grow" id="consNote"></span></div>
+  </section>
+</main>
+<footer class="glass">
+  <button class="btn ghost2" id="applyNew">Add as new layer at playhead</button>
+  <button class="btn primary" id="applySel">Apply to selected layer</button>
+  <div class="status" id="status">Ready.</div>
+</footer>
+<script src="ramp.js"></script>
+<script src="main.js"></script>
+</body></html>
