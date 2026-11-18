@@ -2,7 +2,7 @@
 python3 build.py [--install]   -> build/com.cheats1337.ramp
 ffmpeg is bundled into bin/ when found ($FFMPEG, or ffmpeg on PATH); without it the panel looks for a system ffmpeg at runtime."""
 import os, shutil, sys
-HERE = os.path.dirname(os.path.abspath(__file__)); CEP = os.path.join(HERE, 'cep'); ID = 'com.cheats1337.ramp'; V = '1.0.0'
+HERE = os.path.dirname(os.path.abspath(__file__)); CEP = os.path.join(HERE, 'cep'); ID = 'com.cheats1337.ramp'; V = '1.0.1'
 OUT = os.path.join(HERE, 'build', ID)
 if os.path.isdir(OUT): shutil.rmtree(OUT)
 os.makedirs(os.path.join(OUT, 'CSXS')); os.makedirs(os.path.join(OUT, 'bin'))

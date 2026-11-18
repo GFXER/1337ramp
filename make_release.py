@@ -2,7 +2,7 @@
 python3 make_release.py"""
 import os, zipfile
 HERE = os.path.dirname(os.path.abspath(__file__)); PANEL = os.path.join(HERE, 'build', 'com.cheats1337.ramp'); OUT = os.path.join(HERE, 'release')
-README = '''1337ramp 1.0 - speed-ramp panel for After Effects (macOS)
+README = '''1337ramp 1.0.1 - speed-ramp panel for After Effects (macOS)
 
 1. Double-click "Install 1337ramp.command"  (if macOS blocks it: right-click -> Open -> Open)
 2. Restart After Effects
