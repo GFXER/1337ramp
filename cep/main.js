@@ -22,6 +22,8 @@
   function slash(p) { return String(p).replace(/\\/g, '/'); }
   function evalES(src, cb) { if (!CEP) { cb && cb(''); return; } CEP.evalScript(src, function (r) { cb && cb(r); }); }
   if (NODE) evalES('$.evalFile(' + JSON.stringify(slash(path.join(EXT, 'host.jsx'))) + ')');
+  // drop preview caches nobody used for 14 days (they live in the OS temp folder and are only proxies)
+  if (NODE && window.RAMPCACHE) setTimeout(function () { RAMPCACHE.prune(fs, path, path.join(os.tmpdir(), '1337ramp'), 14); }, 2000);
   function host(fn, arg, cb) {
     evalES(fn + '(' + (arg === undefined ? '' : JSON.stringify(arg)) + ')', function (r) {
       var o; try { o = JSON.parse(r); } catch (e) { o = { ok: false, err: 'Host said: ' + r }; } cb(o);
@@ -139,7 +141,7 @@
         im.src = 'file://' + (slash(path.join(dir, f)).charAt(0) === '/' ? '' : '/') + encodeURI(slash(path.join(dir, f))); FR[i] = im; });
       sizeView();
     }
-    if (fs.existsSync(done)) { load(); return; }
+    if (fs.existsSync(done)) { window.RAMPCACHE && RAMPCACHE.touch(fs, dir); load(); return; }
     try { fs.mkdirSync(dir, { recursive: true }); } catch (e) {}
     showLoad('Making preview frames…');
     var vf = 'scale=' + (pv.w >= pv.h ? '-2:' + Math.round(PH * 9 / 16) : '-2:' + PH) + ':flags=bilinear';
