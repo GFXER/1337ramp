@@ -6,7 +6,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); CEP = os.path.join(HERE, 'cep
 OUT = os.path.join(HERE, 'build', ID)
 if os.path.isdir(OUT): shutil.rmtree(OUT)
 os.makedirs(os.path.join(OUT, 'CSXS')); os.makedirs(os.path.join(OUT, 'bin'))
-for f in ['index.html', 'main.js', 'ramp.js', 'style.css', 'host.jsx']: shutil.copyfile(os.path.join(CEP, f), os.path.join(OUT, f))
+for f in ['index.html', 'main.js', 'ramp.js', 'cache.js', 'style.css', 'host.jsx']: shutil.copyfile(os.path.join(CEP, f), os.path.join(OUT, f))
 ff = os.environ.get('FFMPEG') or shutil.which('ffmpeg')
 if ff and os.path.isfile(ff):
     shutil.copyfile(os.path.realpath(ff), os.path.join(OUT, 'bin', 'ffmpeg')); os.chmod(os.path.join(OUT, 'bin', 'ffmpeg'), 0o755)
