@@ -28,7 +28,7 @@
 2. Double-click **Install 1337ramp.command**. If macOS blocks it: right-click it → Open → Open.
 3. Restart After Effects, then open **Window → Extensions → 1337ramp**.
 
-ffmpeg (used only for the live preview) is included for Apple Silicon. On Intel Macs run `brew install ffmpeg`.
+ffmpeg (used only for the live preview) is included for Apple Silicon. It's a GPL build of FFmpeg; its license notice and source links are in `THIRD_PARTY_NOTICES.txt` inside the zip. On Intel Macs run `brew install ffmpeg`.
 
 Windows: the code is written to support Windows, but it's untested and there's no installer yet.
 
