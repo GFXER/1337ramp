@@ -88,11 +88,20 @@ function r1337_apply(js) {
     try { if (o.blend === 'pixel') { L.frameBlendingType = FrameBlendingType.PIXEL_MOTION; c.frameBlending = true; }
     else if (o.blend === 'mix') { L.frameBlendingType = FrameBlendingType.FRAME_MIX; c.frameBlending = true; }
     else L.frameBlendingType = FrameBlendingType.NO_FRAME_BLEND; } catch (eb) {}
-    L.motionBlur = !!o.mblur; if (o.mblur) { c.motionBlur = true; if (o.shutter) c.shutterAngle = o.shutter; }
+    // the shutter angle is a COMP setting (it affects every layer), so only touch it when it differs, and say so
+    var note = '';
+    L.motionBlur = !!o.mblur;
+    if (o.mblur) {
+      if (!c.motionBlur) { c.motionBlur = true; note += ' Comp motion blur switched on.'; }
+      if (o.shutter && Math.abs(c.shutterAngle - o.shutter) > 0.01) {
+        note += ' Comp shutter ' + c.shutterAngle + '\u00B0 -> ' + o.shutter + '\u00B0 (affects all layers in "' + c.name + '"; Undo reverts it).';
+        c.shutterAngle = o.shutter;
+      }
+    }
     try { L.comment = '1337ramp:' + o.settings; } catch (e) {}
     L.label = 8; L.selected = true;
     app.endUndoGroup();
-    return r1337_str({ ok: true, msg: 'Ramp applied to "' + L.name + '": ' + N + ' frames at ' + T0.toFixed(2) + ' s.' });
+    return r1337_str({ ok: true, msg: 'Ramp applied to "' + L.name + '": ' + N + ' frames at ' + T0.toFixed(2) + ' s.' + note });
   } catch (e) { try { app.endUndoGroup(); } catch (x) {} return r1337_str({ ok: false, err: e.message + ' (line ' + e.line + ')' }); }
 }
 
